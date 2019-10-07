@@ -62,6 +62,9 @@ function (add_sigcpp_test TEST_SOURCE_FILE)
 	add_executable (${test_name} ${TEST_SOURCE_FILE} testutilities.cc)
 	target_link_libraries (${test_name} sigc-${SIGCXX_API_VERSION})
 	add_test (${test_name} ${CMAKE_CURRENT_BINARY_DIR}/${test_name})
+
+        # Help MSVC to find the library that the tests should link against.
+        set_tests_properties( ${test_name} PROPERTIES ENVIRONMENT "PATH=${sigc++_BINARY_DIR};$ENV{PATH}" )
 endfunction (add_sigcpp_test)
 
 foreach (test_file ${TEST_SOURCE_FILES})
